@@ -1,12 +1,13 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Book from './Book'
+import Bookshelf from './Bookshelf'
 
 /** Module Constants */
 const CURRENTLY_READING = 'currentlyReading'
 const WANT_TO_READ = 'wantToRead'
 const READ = 'read'
+const CONSTANTS = [ CURRENTLY_READING, WANT_TO_READ, READ ]
 
 /** Dummy data. TODO: Retrieve books from API */
 const books = {
@@ -106,42 +107,11 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        books[CURRENTLY_READING].map(book => (
-                          <Book title={book.title} author={book.author} id={book.id} coverURL={book.coverURL} />
-                        ))
-                      }
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        books[WANT_TO_READ].map(book => (
-                          <Book title={book.title} author={book.author} id={book.id} coverURL={book.coverURL} />
-                        ))
-                      }
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {
-                        books[READ].map(book => (
-                          <Book title={book.title} author={book.author} id={book.id} coverURL={book.coverURL} />
-                        ))
-                      }
-                    </ol>
-                  </div>
-                </div>
+                {
+                  CONSTANTS.map(c => (
+                    <Bookshelf title={c} books={books[c]} />
+                  ))
+                }
               </div>
             </div>
             <div className="open-search">
