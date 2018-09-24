@@ -33,7 +33,9 @@ class BooksApp extends React.Component {
 
   onStatusChange = (book) => {
     this.setState(currentState => (
-      currentState.books[book.prevStatus].splice(currentState.books[book.prevStatus].findIndex(b => b.id === book.id), 1)
+      (book.prevStatus !== undefined && currentState.books[book.prevStatus].length > 0) &&
+        currentState.books[book.prevStatus]
+        .splice(currentState.books[book.prevStatus].findIndex(b => b.id === book.id), 1)
     ))
 
     this.setState(currentState => (
@@ -67,7 +69,7 @@ class BooksApp extends React.Component {
               </div>
             )}
           />
-          <Route path="/search" component={Search} />
+          <Route path="/search" render={() => <Search onStatusChange={this.onStatusChange} />} />
       </div>
     )
   }

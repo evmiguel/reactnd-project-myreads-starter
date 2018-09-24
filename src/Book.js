@@ -13,7 +13,7 @@ class Book extends Component {
 			prevStatus: prevStatus,
 			currentStatus: currentStatus,
 			title: this.props.title,
-			author: this.props.author,
+			authors: this.props.author,
 			id: this.props.id,
 			coverURL: this.props.coverURL
 		})
@@ -21,12 +21,12 @@ class Book extends Component {
 	}
 
 	render() {
-		const { title, author, id, coverURL } = this.props
+		const { title, authors, id, coverURL } = this.props
 		return(
 			<li key={id}>
 				<div className="book">
 		          <div className="book-top">
-		            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${coverURL}")` }}></div>
+		            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${(coverURL)}")` }}></div>
 		            <div className="book-shelf-changer">
 		              <select value={this.state.status} onChange={this.handleStatusChange}>
 		                <option value="move" disabled>Move to...</option>
@@ -38,7 +38,7 @@ class Book extends Component {
 		            </div>
 		          </div>
 		          <div className="book-title">{title}</div>
-		          <div className="book-authors">{author}</div>
+		          <div className="book-authors">{authors}</div>
 		        </div>
 		    </li>
 		)
@@ -48,9 +48,8 @@ class Book extends Component {
 Book.propTypes = {
 	id: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
-	author: PropTypes.string.isRequired,
-	onStatusChange: PropTypes.func.isRequired,
-	coverURL: PropTypes.string
+	authors: PropTypes.array,
+	onStatusChange: PropTypes.func.isRequired
 }
 
 export default Book
