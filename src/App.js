@@ -43,7 +43,10 @@ class BooksApp extends React.Component {
   handleShelfChange = (book, shelf) => {
 
     BooksAPI.update(book, shelf).then((data) => {
-      this.getBooks()
+      let updatedBooksList = this.state.books.map(b => {
+                  return (b.id  == book.id) ? Object.assign({}, b, {shelf: shelf}) : b
+              });
+      this.setState({ books: updatedBooksList })
     })
   }
 
