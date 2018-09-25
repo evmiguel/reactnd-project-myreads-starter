@@ -1,3 +1,13 @@
+/**
+
+  Author: Erika Miguel
+  Date: September 25, 2018
+
+  This file describes the Book component for the My Reads project,
+  utilized by the Bookshelf and Search components.
+
+*/
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 

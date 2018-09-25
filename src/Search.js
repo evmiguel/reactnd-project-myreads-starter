@@ -1,3 +1,12 @@
+/**
+
+  Author: Erika Miguel
+  Date: September 25, 2018
+
+  This file describes the Search component for the My Reads project.
+
+*/
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'

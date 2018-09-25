@@ -1,6 +1,14 @@
+/**
+
+  Author: Erika Miguel
+  Date: September 25, 2018
+
+  This file contains the main app for the My Reads book project.
+
+*/
+
 import React from 'react'
 import { Route, Link } from 'react-router-dom'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './Bookshelf'
 import Search from './Search'
