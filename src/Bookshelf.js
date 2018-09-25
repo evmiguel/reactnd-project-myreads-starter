@@ -2,12 +2,6 @@ import React, { Component } from 'react'
 import Book from './Book'
 import PropTypes from 'prop-types'
 
-/** Module Constants */
-const CURRENTLY_READING = 'currentlyReading'
-const WANT_TO_READ = 'wantToRead'
-const READ = 'read'
-const NONE = 'none'
-
 class Bookshelf extends Component {
 
 	handleShelfChange = (book, shelf) => {

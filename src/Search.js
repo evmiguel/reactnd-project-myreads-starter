@@ -1,27 +1,21 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-import { CURRENTLY_READING, WANT_TO_READ, READ, NONE } from './App'
 
 class Search extends Component {
 	state = {
-		query: '',
-		books: [],
-		activeBooks: this.props.activeBooks
+		query: ''
 	}
 
-	handleQuery = event => {
+	componentWillUnmount() {
+		// Ensures that we clear out the search history for the next session
+		this.props.handleSearchQuery('')
+	}
+
+	handleSearchQuery = event => {
 		const query = event.target.value
-
 		this.setState({ query: query })
-
-		BooksAPI.search(query)
-			.then(books => {
-				this.setState({
-					books: books
-				})
-			})
+		this.props.handleSearchQuery(query)
 	}
 
 	handleShelfChange = (book, shelf) => {
@@ -30,6 +24,7 @@ class Search extends Component {
 
 
 	render() {
+		const { books } = this.props
 		return(
 			<div className="search-books">
 			    <div className="search-books-bar">
@@ -43,12 +38,12 @@ class Search extends Component {
 			          However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
 			          you don't find a specific author or title. Every search is limited by search terms.
 			        */}
-			        <input type="text" value={this.state.query} placeholder="Search by title or author" onChange={this.handleQuery}/>
+			        <input type="text" value={this.state.query} placeholder="Search by title or author" onChange={this.handleSearchQuery}/>
 			      </div>
 			    </div>
 			    <div className="search-books-results">
 			      <ol className="books-grid">{
-			      	(this.state.books !== undefined && this.state.books.length > 0) ? this.state.books.map(book => (<Book
+			      	(books !== undefined && books.length > 0) ? books.map(book => (<Book
 			      							key={book.id}
 			      							id={book.id}
 			      							title={book.title}
