@@ -42,11 +42,23 @@ class BooksApp extends React.Component {
 
   handleShelfChange = (book, shelf) => {
 
+    // Update the book's shelf in the API first
     BooksAPI.update(book, shelf).then((data) => {
-      let updatedBooksList = this.state.books.map(b => {
-                  return (b.id  == book.id) ? Object.assign({}, b, {shelf: shelf}) : b
-              });
-      this.setState({ books: updatedBooksList })
+      // Update the shelf of this book in the state after updating in the API
+      let updatedBooksList = []
+      if (this.state.books.find(b => b.id === book.id)) {
+          updatedBooksList = this.state.books.map(b => {
+                return (b.id  == book.id) ? Object.assign({}, b, {shelf: shelf}) : b
+            });
+            this.setState({ books: updatedBooksList })
+      } else {
+        let newBook = BooksAPI.get(book.id).then(data => {
+            this.setState((currentState) => ({
+              books: [...currentState.books, data]
+            }))
+          })
+        }
+
     })
   }
 
@@ -72,8 +84,8 @@ class BooksApp extends React.Component {
             )}
           />
           <Route path="/search" render={() => <Search
-                                                getActiveBooks={() => this.state}
-                                                onStatusChange={this.onStatusChange}
+                                                activeBooks={this.state.books}
+                                                handleShelfChange={this.handleShelfChange}
                                               />}
           />
       </div>

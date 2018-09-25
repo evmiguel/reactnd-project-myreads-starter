@@ -8,7 +8,7 @@ class Search extends Component {
 	state = {
 		query: '',
 		books: [],
-		activeBooks: {}
+		activeBooks: this.props.activeBooks
 	}
 
 	handleQuery = event => {
@@ -24,8 +24,8 @@ class Search extends Component {
 			})
 	}
 
-	onStatusChange = (book) => {
-		this.props.onStatusChange(book)
+	handleShelfChange = (book, shelf) => {
+		this.props.handleShelfChange(book, shelf)
 	}
 
 
@@ -52,9 +52,10 @@ class Search extends Component {
 			      							key={book.id}
 			      							id={book.id}
 			      							title={book.title}
+			      							shelf={book.shelf}
 			      							authors={(book.authors !== undefined && book.authors.length > 0) ? book.authors : [] }
 			      							coverURL={(book.imageLinks !== undefined && book.imageLinks.thumbnail !== undefined) ? book.imageLinks.thumbnail : ""}
-			      							onStatusChange={this.onStatusChange}
+			      							handleShelfChange={this.handleShelfChange}
 			      						/>)
 
 			      			)
