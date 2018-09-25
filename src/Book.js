@@ -3,21 +3,20 @@ import PropTypes from 'prop-types'
 
 class Book extends Component {
 	state = {
-		status: this.props.status
+		status: this.props.status !== undefined ? this.props.status : 'none'
 	}
 
 	handleStatusChange = (event) => {
 		const prevStatus = this.props.status
-		const currentStatus = event.target.value
+		const shelf = event.target.value
 		this.props.onStatusChange({
-			prevStatus: prevStatus,
-			currentStatus: currentStatus,
+			shelf: shelf,
 			title: this.props.title,
-			authors: this.props.author,
+			authors: this.props.authors,
 			id: this.props.id,
 			coverURL: this.props.coverURL
 		})
-		this.setState({ status: currentStatus })
+		this.setState({ status: shelf })
 	}
 
 	render() {
@@ -33,12 +32,15 @@ class Book extends Component {
 		                <option value="currentlyReading">Currently Reading</option>
 		                <option value="wantToRead">Want to Read</option>
 		                <option value="read">Read</option>
-		                <option value="none" selected={true}>None</option>
+		            	{ /**  Naively set default value to "None" for any books that were retrieved */}
+		                <option value="none">None</option>
 		              </select>
 		            </div>
 		          </div>
 		          <div className="book-title">{title}</div>
-		          <div className="book-authors">{authors}</div>
+		          {
+		          	(authors !== undefined) ? authors.map(author => (<div className="book-authors" key={author}>{author}</div>)) : <div className="book-authors">{authors}</div>
+		          }
 		        </div>
 		    </li>
 		)

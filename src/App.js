@@ -4,6 +4,7 @@ import { Route, Link } from 'react-router-dom'
 import './App.css'
 import Bookshelf from './Bookshelf'
 import Search from './Search'
+import  *  as BooksAPI from './BooksAPI'
 
 /** Module Constants */
 const CURRENTLY_READING = 'currentlyReading'
@@ -19,29 +20,24 @@ const titles = {
 
 const CONSTANTS = [ CURRENTLY_READING, WANT_TO_READ, READ ]
 
+
 class BooksApp extends React.Component {
 
-
   state = {
-    books: {
-      [ CURRENTLY_READING ]: [],
-      [ WANT_TO_READ ] : [],
-      [ READ ] : [],
-      [ NONE ] : []
-    }
+    books: []
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll()
+      .then((books) => {
+        this.setState(() => ({
+          books
+        }))
+      })
   }
 
   onStatusChange = (book) => {
-    this.setState(currentState => (
-      (book.prevStatus !== undefined && currentState.books[book.prevStatus].length > 0) &&
-        currentState.books[book.prevStatus]
-        .splice(currentState.books[book.prevStatus].findIndex(b => b.id === book.id), 1)
-    ))
-
-    this.setState(currentState => (
-      currentState.books[book.currentStatus].push(book)
-    ))
-
+    console.log(book)
   }
 
   render() {
@@ -57,7 +53,7 @@ class BooksApp extends React.Component {
                     <div>
                       {
                         CONSTANTS.map(c => (
-                          <Bookshelf title={titles[c]} books={this.state.books[c]} key={c} status={c} onStatusChange={this.onStatusChange}/>
+                          <Bookshelf title={titles[c]} books={this.state.books.filter(book => book.shelf === c)} key={c} status={c} onStatusChange={this.onStatusChange}/>
                         ))
                       }
                     </div>
@@ -69,10 +65,15 @@ class BooksApp extends React.Component {
               </div>
             )}
           />
-          <Route path="/search" render={() => <Search onStatusChange={this.onStatusChange} />} />
+          <Route path="/search" render={() => <Search
+                                                getActiveBooks={() => this.state}
+                                                onStatusChange={this.onStatusChange}
+                                              />}
+          />
       </div>
     )
   }
 }
 
 export default BooksApp
+export { CURRENTLY_READING, WANT_TO_READ, READ, NONE }

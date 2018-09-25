@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import Book from './Book'
 import PropTypes from 'prop-types'
 
+/** Module Constants */
+const CURRENTLY_READING = 'currentlyReading'
+const WANT_TO_READ = 'wantToRead'
+const READ = 'read'
+const NONE = 'none'
+
 class Bookshelf extends Component {
 
 	onStatusChange = (book) => (
@@ -9,19 +15,20 @@ class Bookshelf extends Component {
 	)
 
 	render() {
+		const { title, books } = this.props
 		return(
 			<div className="bookshelf">
-              <h2 className="bookshelf-title">{this.props.title}</h2>
+              <h2 className="bookshelf-title">{title}</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   {
-                    this.props.books.map(book => (
+                    books.map(book => (
                       <Book title={book.title}
-                      		author={book.author}
+                      		authors={book.authors}
                       		id={book.id}
-                      		coverURL={book.coverURL}
+                      		coverURL={book.imageLinks.thumbnail}
                       		key={book.id}
-                      		status={this.props.status}
+                      		status={book.shelf}
                       		onStatusChange={this.onStatusChange}
                       	/>
                     ))

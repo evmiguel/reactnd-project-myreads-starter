@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
+import { CURRENTLY_READING, WANT_TO_READ, READ, NONE } from './App'
 
 class Search extends Component {
 	state = {
 		query: '',
-		books: []
+		books: [],
+		activeBooks: {}
 	}
 
 	handleQuery = event => {
@@ -22,9 +24,10 @@ class Search extends Component {
 			})
 	}
 
-	onStatusChange = (book) => (
+	onStatusChange = (book) => {
 		this.props.onStatusChange(book)
-	)
+	}
+
 
 	render() {
 		return(
