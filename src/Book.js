@@ -3,20 +3,13 @@ import PropTypes from 'prop-types'
 
 class Book extends Component {
 	state = {
-		status: this.props.status !== undefined ? this.props.status : 'none'
+		shelf: ''
 	}
 
-	handleStatusChange = (event) => {
-		const prevStatus = this.props.status
+	handleShelfChange = (event) => {
 		const shelf = event.target.value
-		this.props.onStatusChange({
-			shelf: shelf,
-			title: this.props.title,
-			authors: this.props.authors,
-			id: this.props.id,
-			coverURL: this.props.coverURL
-		})
-		this.setState({ status: shelf })
+		this.props.handleShelfChange(this.props.id, shelf)
+		this.setState({ shelf: shelf })
 	}
 
 	render() {
@@ -27,7 +20,7 @@ class Book extends Component {
 		          <div className="book-top">
 		            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${(coverURL)}")` }}></div>
 		            <div className="book-shelf-changer">
-		              <select value={this.state.status} onChange={this.handleStatusChange}>
+		              <select value={this.state.shelf} onChange={this.handleShelfChange}>
 		                <option value="move" disabled>Move to...</option>
 		                <option value="currentlyReading">Currently Reading</option>
 		                <option value="wantToRead">Want to Read</option>
@@ -51,7 +44,7 @@ Book.propTypes = {
 	id: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
 	authors: PropTypes.array,
-	onStatusChange: PropTypes.func.isRequired
+	handleShelfChange: PropTypes.func.isRequired
 }
 
 export default Book

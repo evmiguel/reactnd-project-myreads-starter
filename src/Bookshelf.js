@@ -10,9 +10,9 @@ const NONE = 'none'
 
 class Bookshelf extends Component {
 
-	onStatusChange = (book) => (
-		this.props.onStatusChange(book)
-	)
+	handleShelfChange = (book, shelf) => {
+		this.props.handleShelfChange(book, shelf)
+	}
 
 	render() {
 		const { title, books } = this.props
@@ -28,8 +28,8 @@ class Bookshelf extends Component {
                       		id={book.id}
                       		coverURL={book.imageLinks.thumbnail}
                       		key={book.id}
-                      		status={book.shelf}
-                      		onStatusChange={this.onStatusChange}
+                      		shelf={book.shelf}
+                      		handleShelfChange={this.handleShelfChange}
                       	/>
                     ))
                   }
@@ -42,7 +42,7 @@ class Bookshelf extends Component {
 
 Bookshelf.propTypes = {
 	title: PropTypes.string.isRequired,
-	onStatusChange: PropTypes.func.isRequired
+	handleShelfChange: PropTypes.func.isRequired
 }
 
 export default Bookshelf
