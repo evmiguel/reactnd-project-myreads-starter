@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 
 class Book extends Component {
 	state = {
-		shelf: ''
+		shelf: this.props.shelf !== undefined ? this.props.shelf : 'none'
 	}
 
 	handleShelfChange = (event) => {
 		const shelf = event.target.value
-		this.props.handleShelfChange(this.props.id, shelf)
+		this.props.handleShelfChange({ id: this.props.id}, shelf)
 		this.setState({ shelf: shelf })
 	}
 

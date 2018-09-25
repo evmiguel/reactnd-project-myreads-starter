@@ -43,11 +43,7 @@ class BooksApp extends React.Component {
   handleShelfChange = (book, shelf) => {
 
     BooksAPI.update(book, shelf).then((data) => {
-      console.log(data)
-      this.setState(currentState => {
-        const found = this.state.books.find(b => b.id === book)
-        found.shelf = shelf
-      })
+      this.getBooks()
     })
   }
 
@@ -62,7 +58,7 @@ class BooksApp extends React.Component {
                   </div>
                   <div className="list-books-content">
                     <div>
-                      { CONSTANTS.map((c,index) => ( <Bookshelf key={index} title={c} books={this.state.books.filter(book => book.shelf === c)} handleShelfChange={this.handleShelfChange}/> )) }
+                      { CONSTANTS.map((c,index) => ( <Bookshelf key={index} title={titles[c]} books={this.state.books.filter(book => book.shelf === c)} handleShelfChange={this.handleShelfChange}/> )) }
                     </div>
                   </div>
                 </div>
