@@ -8,12 +8,11 @@
 */
 
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import './App.css'
-import Bookshelf from './Bookshelf'
+import FrontPage from './FrontPage'
 import Search from './Search'
 import  *  as BooksAPI from './BooksAPI'
-import { titles, CONSTANTS } from './Constants'
 
 
 class BooksApp extends React.Component {
@@ -81,21 +80,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
           <Route exact path="/" render={() => (
-              <div className="front-page">
-                <div className="list-books">
-                  <div className="list-books-title">
-                    <h1>Erika's Reads</h1>
-                  </div>
-                  <div className="list-books-content">
-                    <div>
-                      { CONSTANTS.map((c,index) => ( <Bookshelf key={index} title={titles[c]} books={this.state.books.filter(book => book.shelf === c)} handleShelfChange={this.handleShelfChange}/> )) }
-                    </div>
-                  </div>
-                </div>
-                <div className="open-search">
-                  <Link to="/search">Add a book</Link>
-                </div>
-              </div>
+              <FrontPage
+                books={this.state.books}
+                handleShelfChange={this.handleShelfChange}
+              />
             )}
           />
           <Route path="/search" render={() =>
