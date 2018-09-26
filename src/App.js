@@ -13,19 +13,7 @@ import './App.css'
 import Bookshelf from './Bookshelf'
 import Search from './Search'
 import  *  as BooksAPI from './BooksAPI'
-
-/** Module Constants */
-const CURRENTLY_READING = 'currentlyReading'
-const WANT_TO_READ = 'wantToRead'
-const READ = 'read'
-
-const titles = {
-  [CURRENTLY_READING]: 'Currently Reading',
-  [WANT_TO_READ]: 'Want to Read',
-  [READ]: 'Read'
-}
-
-const CONSTANTS = [ CURRENTLY_READING, WANT_TO_READ, READ ]
+import { titles, CONSTANTS } from './Constants'
 
 
 class BooksApp extends React.Component {
